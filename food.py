@@ -8,7 +8,6 @@ class Food:
         self.name = name
         self.idnum = idnum
         self.chance = chance
-        self.prepared = False
 
     def __str__(self):
         return "Student " + str(self.idnum) + "'s " + self.name
