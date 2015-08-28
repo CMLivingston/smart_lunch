@@ -18,6 +18,10 @@ def main():
     win = GraphWin("IoT Simulation", 858, 638)
     background_image = "./static/dart.gif"
     dartMap(background_image, win)
+            
+    while True:
+        w = win.getMouse()
+        print "x: " + str(w.x) + " y: " + str(w.y) 
     
     # to end sim
     win.getMouse()

@@ -1,0 +1,4 @@
+dartmouth hall,529,269
+wilder hall,625,44
+silsby hall,410,122
+visual arts center,480,295
