@@ -7,4 +7,11 @@ Authors:
 
 General Notes:
 
-	 
+
+
+
+Testing Methods:
+
+	to build and run, enter in terminal:
+		
+		python driver.py 	 

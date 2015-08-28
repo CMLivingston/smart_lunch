@@ -1,0 +1,24 @@
+*.pyc
+*.project
+*.pydevproject
+*.DS_store
+*.DS_Store
+#################
+
+*.dll
+*.exe
+*.o
+*.so
+# Packages #
+############
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+# Logs and databases #
+#####################
+*.log
+*.DS_STORE
+
