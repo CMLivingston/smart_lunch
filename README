@@ -7,7 +7,7 @@ Authors:
 
 General Notes:
 
-
+	.txt files in static folder are CSV files to store info about our objects. If you wish to change anything about objects in simulation, change there.
 
 
 Testing Methods:
