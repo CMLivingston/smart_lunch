@@ -4,20 +4,24 @@
 
 class Student:
 
-    def __init__(self, id, speed = 3, tolerance = 10, preferences = [], times = [], has_food = False):
-        
-        self.id = id
+    def __init__(self, idnum, speed, tolerance, preferences, times, has_food):
+      
+        self.id = idnum
         self.speed = speed
         self.tolerance = tolerance
-        self.preferences = preferences
-        self.times = times    
-        self.has_food_bool = has_food
-    
-    def __str__(self):     
-        return str(self.id)
+        self.preferences = [[0 for x in range(1)] for x in range(3)]
+        setPrefs(preferences)
+        self.times = times
+        self.has_food = False
+
+    def __str__(self): 
+        return str(self.idnum)
 
     def hasFood(self):
-        return self.has_food_bool
+        return self.has_food
+
+    def setPrefs(self, preferences):
+
 
 
 
@@ -26,7 +30,7 @@ class Student:
 
 def test():
    
-    s = Student(2,5,3)
+    s = Student()
     print s.hasFood()
 
 if __name__ == "__main__":
