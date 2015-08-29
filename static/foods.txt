@@ -1,0 +1,4 @@
+eggs,0.35
+stirfry,0.35
+grill,0.5
+sandwich,0.3

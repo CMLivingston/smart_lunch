@@ -10,87 +10,61 @@ import random
 import math
 import copy
 
-def give_me_stations():
+def make_foods(filepath):
 
-    # create foods first...
-    eggs_chance = 0.35
-    eggs = Food("Eggs", 0, eggs_chance)
-    stirfry_chance = 0.35
-    stirfry = Food("Stirfry", 0, stirfry_chance)
-    grill_chance = 0.5
-    grill = Food("Grill Item", 0, grill_chance)
-    sandwich_chance = 0.3
-    sandwich = Food("Sandwich", 0, sandwich_chance)
+    in_file = open(filepath, 'r')
+    foods = []
 
-    # ...then create stations...
-    
+    for line in in_file:
+        # make an array of strings seperated by ,
+        x = line.strip()
+        s = x.split(',')
+        f = Food(s[0], s[1])
+        foods.append(f)
+
+    return foods
+
+def make_stations(filepath, foods):
+
+    in_file = open(filepath, 'r')
     stations = {}
-    
-    egg_cook = 3
-    egg_max = 4
-    egg_station = Station("Eggs", egg_cook, egg_max, eggs)
-    stirfry_cook = 5
-    stirfry_max = 4
-    stirfry_station = Station("Stirfry", stirfry_cook, stirfry_max, stirfry)
-    grill_cook = 4
-    grill_max = 10
-    grill_station = Station("Grill", grill_cook, grill_max, grill)
-    sandwich_cook = 4
-    sandwich_max = 2
-    sandwich_station = Station("Sandwich", sandwich_cook, sandwich_max, sandwich)
-
-    # ...then create station arrays...
     hop_stations = []
     collis_stations = []
-    novack_stations = [] # left empty
+    novack_stations = []
     
-    # append whatever we want
-    hop_stations.append(grill_station)
-    hop_stations.append(sandwich_station)
-    collis_stations.append(egg_station)
-    collis_stations.append(stirfry_station)
+    for line in in_file:
+        # make an array of strings separated by ,
+        x = line.strip()
+        s = x.split(',')
+        station_name = s[0]
+        for food in foods:
+            if station_name == food.name:
+                station = Station(s[0], s[1], s[2], food)
+                if s[3] == "hop":
+                    hop_stations.append(station)
+                elif s[3] == "collis":
+                    collis_stations.append(station)
+                break
 
-
-    # add them to the dict for loading
     stations["hop_stations"] = hop_stations
     stations["collis_stations"] = collis_stations
-    
-    # give to dict back to caller so venues can ve constructed above in "give_me_venues"
+    stations["novack_stations"] = novack_stations
+
     return stations
-    
 
-
-def give_me_venue_dict():
+def make_venues(filepath, stations):
     
     venues = {}
     
-    # get the stations created below
-    stations = give_me_stations()
-    
     # for each venue in data file, extract its attributes and populate venue dictionary for use in driver.py
-    file_str = "./static/venues.txt"
-    in_file = open(file_str, 'r')
+    in_file = open(filepath, 'r')
     
     for line in in_file:
         # make an array of strings seperated by ,
         x = line.strip()
         s = x.split(',')
-        
-        # make empty station array
-        arrayOfStations = []
-        data_len = len(s)
-        # fill with indexed 5 and up of s array (should be which stations it offers)
-        if (data_len > 5):
-            i = 5
-            while (i != data_len):
-                station_obj = stations[s[i]]
-                arrayOfStations.append(station_obj)
-                i = i+1
-        else:
-            print "(FUCK):data_err:stations are not input correctly in venues.txt"
-        
         # construct a veune for placement into dict
-        v = Venue(s[0],int(s[1]),int(s[2]),float(s[3]),int(s[4]), arrayOfStations)
+        v = Venue(s[0],s[1],s[2],s[3],s[4],stations[s[5]])
       
         # put name string as index of dict
         venues[s[0]] = v
@@ -130,11 +104,19 @@ def give_me_classroom_dict():
 
 def test():
    
-   d = give_me_venue_dict()
-   print d['foco']
-   
-   c = give_me_classroom_dict()
-   print c['silsby hall']
+    foods = make_foods("./static/foods.txt")
+    stations = make_stations("./static/stations.txt", foods)
+    venues = make_venues("./static/venues.txt", stations)
+    for food in foods:
+        print food.name, food.chance
+    for station in stations:
+        for s in stations[station]:
+            print s.name
+    for venue in venues:
+        print venues[venue].name
+        for station in venues[venue].stations:
+            print station
+            
 
 
 

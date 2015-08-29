@@ -15,7 +15,7 @@ from vertex import *
 # load data from verticies.txt and return a vertex dictionary to represent our graph
 def load_graph():
     
-    file = "./static/verticies.txt"
+    file = "./static/vertices.txt"
     
     vertex_dict = {}
     
