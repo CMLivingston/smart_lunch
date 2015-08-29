@@ -1,12 +1,12 @@
-## Main Driver Module for Simulation of Dartmouth Lunch Hour
-## WITH and WITHOUT the INTERNET OF THINGS
-##
-## Created by Chris Livingston and Jasper Bingham
-##
-## 8/28/15
-##
-##
-## IMPORTS
+# # Main Driver Module for Simulation of Dartmouth Lunch Hour
+# # WITH and WITHOUT the INTERNET OF THINGS
+# #
+# # Created by Chris Livingston and Jasper Bingham
+# #
+# # 8/28/15
+# #
+# #
+# # IMPORTS
 from graphics import *
 from load_data import *
 from load_graph import load_graph
@@ -14,9 +14,9 @@ from venue import *
 from classroom import *
 from student import *
 from bfs import *
-##
-##
-## MACROS
+# #
+# #
+# # MACROS
 DEBUG_GRAPH = True
 
 
@@ -38,17 +38,17 @@ def main():
         px = 0    
         while (i < 22):
             px = px + inc
-            l = Line(Point(px,0), Point(px,638))
+            l = Line(Point(px, 0), Point(px, 638))
             l.draw(win)
-            i = i+1
+            i = i + 1
         inc = 39
         i = 0
         py = 0
         while (i < 16):
             py = py + inc
-            l = Line(Point(0,py), Point(858,py))
+            l = Line(Point(0, py), Point(858, py))
             l.draw(win)
-            i = i+1
+            i = i + 1
     
     
     
@@ -71,7 +71,7 @@ def main():
 # draws Dartmouth map into provided graphics window
 def dartMap(im, win):
     p = Point(434, 320)
-    i = Image(p,im)
+    i = Image(p, im)
     i.draw(win)
 
 
