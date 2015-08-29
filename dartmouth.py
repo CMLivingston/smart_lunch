@@ -72,7 +72,7 @@ def setup():
     walk_speed = 3 # mph
     line_tolerance = 10
     while students > 0:
-        preferences = make_prefs(venues)
+        preferences = make_prefs(venues, curr_id)
         stud = Student(curr_id, walk_speed, line_tolerance, preferences, 0, False)
         stud_array.append(stud)
         curr_id = curr_id + 1
@@ -82,35 +82,52 @@ def setup():
     for student in stud_array:
         print "Student " + str(student.id)
         for preference in student.preferences:
-            print preference[0].name
+            if preference[1] == 0:
+                print preference[0].name, ":", "Prepared"
+            else:
+                print preference[0].name, ":", preference[1]
     return stud_array
 
-def make_prefs(venues):
+def make_prefs(venues, idnum):
+
     # first we need to rank the student's venue choices
     ret = [[0 for x in range(2)] for x in range(len(venues))]
     curr_rank = 0  # keeps track of which rank we're dealing with
-    new_venues = copy.deepcopy(venues)
-    for y in range(0, len(new_venues)):
+    venues_copy = copy.deepcopy(venues)
+    for y in range(0, len(venues_copy)):
         total_prob = 0  # will be upper range of our random num generation
-        for venue in new_venues:
+        for venue in venues_copy:
             total_prob = total_prob + venue.chance
-        bound_matrix = [[0 for z in range(2)] for z in range(len(new_venues))]
+        bound_matrix = [[0 for z in range(2)] for z in range(len(venues_copy))]
         curr_bound = 0  # keeps track of which boundary we're making
-        for a in range(0, len(new_venues)):
-            curr_bound = curr_bound + new_venues[a].chance
-            bound_matrix[a][0] = new_venues[a]
+        for a in range(0, len(venues_copy)):
+            curr_bound = curr_bound + venues_copy[a].chance
+            bound_matrix[a][0] = venues_copy[a]
             bound_matrix[a][1] = curr_bound
         pref = random.uniform(0, total_prob)  # randomly generated number
         bottom_bound = 0
-        for b in range(0, len(new_venues)):
+        for b in range(0, len(venues_copy)):
             if pref >= bottom_bound and pref <= bound_matrix[b][1]:
-                ret[curr_rank][0] = new_venues[b]
-                new_venues.remove(new_venues[b])
+                ret[curr_rank][0] = venues_copy[b]
+                venues_copy.remove(venues_copy[b])
                 curr_rank = curr_rank + 1
                 break
             else:
                 bottom_bound = bound_matrix[b][1]
 
+    # then we need to figure out what food they will want at each place
+    for z in range(0, len(venues)):
+        if len(ret[z][0].stations) > 0:  # i.e., not novack
+            curr_bound = 0
+            pref = random.random()
+            for station in ret[z][0].stations:
+                if pref >= curr_bound and pref <= curr_bound + station.food.chance:
+                    ret[z][1] = station
+                    break
+                else:
+                    curr_bound = curr_bound + station.food.chance
+        else:
+            continue
     return ret
 
 setup()
