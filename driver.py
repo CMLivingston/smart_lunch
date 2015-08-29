@@ -33,6 +33,7 @@ def main():
     venues = make_venues("./static/venues.txt", stations)
     classrooms = make_classrooms("./static/classrooms.txt")
     
+    
     if (DEBUG_GRAPH == True):
         # draw grid on background so we can see nodes of map
         inc = 39
@@ -52,16 +53,9 @@ def main():
             l.draw(win)
             i = i + 1
     
-    
-    # load graph data structure with nodes representing Dartmouth campus
-    g = load_graph()
-    start = g['baker east']
-    end = g['carson']
-    x = bfs(start, end)
-    print "Shortest path from start to end: "
-    for v in x:
-        print v
-
+    if (DEBUG_GRAPH == True):
+        # change this around to any of the vertex names found in 'vertices.txt'
+        graphTest('reed hall', 'wentworth')
     
     if (DEBUG_GRAPH == True):
         # print x and y of mouse click (for testing)        
@@ -84,7 +78,16 @@ def dartMap(im, win):
     i.draw(win)
 
 
-
+# to test shortest pathfinding in graph
+def graphTest(start, end):
+  # load graph data structure with nodes representing Dartmouth campus
+    g = load_graph()
+    s = g[start]
+    e = g[end]
+    x = bfs(s, e)
+    print "Shortest path from start to end (reverse order): "
+    for v in x:
+        print v
 #
 #
 #
