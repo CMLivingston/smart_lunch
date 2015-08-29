@@ -1,5 +1,5 @@
 ## load_data.py
-## this methods of this module parse comma-seperated value files and return a dictionary of 
+## the methods of this module parse comma-seperated value files and return a dictionary of 
 ## objects that have been instantiated with the data from the CSV
 from venue import *
 from classroom import *
