@@ -4,9 +4,11 @@
 
 class Student:
 
-    def __init__(self, idnum, speed, tolerance, preferences, times, has_food):
+    def __init__(self, idnum, x, y, speed, tolerance, preferences, times, has_food):
       
         self.id = idnum
+        self.x = x
+        self.y = y
         self.speed = speed
         self.tolerance = tolerance
         self.preferences = preferences
@@ -26,6 +28,3 @@ def test():
 
 if __name__ == "__main__":
     test()
-
-
-

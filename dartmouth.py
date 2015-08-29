@@ -71,9 +71,11 @@ def setup():
     curr_id = 1
     walk_speed = 3 # mph
     line_tolerance = 10
+    start_x = 0
+    start_y = 0
     while students > 0:
         preferences = make_prefs(venues, curr_id)
-        stud = Student(curr_id, walk_speed, line_tolerance, preferences, 0, False)
+        stud = Student(curr_id, start_x, start_y, walk_speed, line_tolerance, preferences, 0, False)
         stud_array.append(stud)
         curr_id = curr_id + 1
         students = students - 1
