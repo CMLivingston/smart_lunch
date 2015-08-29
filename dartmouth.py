@@ -13,13 +13,13 @@ def setup():
 
     # create foods first...
     eggs_chance = 0.35
-    eggs = Food("Eggs", 0, eggs_chance)
+    eggs = Food("Eggs", eggs_chance)
     stirfry_chance = 0.35
-    stirfry = Food("Stirfry", 0, stirfry_chance)
+    stirfry = Food("Stirfry", stirfry_chance)
     grill_chance = 0.5
-    grill = Food("Grill Item", 0, grill_chance)
+    grill = Food("Grill Item", grill_chance)
     sandwich_chance = 0.3
-    sandwich = Food("Sandwich", 0, sandwich_chance)
+    sandwich = Food("Sandwich", sandwich_chance)
 
     # ...then create stations...
     egg_cook = 3

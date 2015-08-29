@@ -1,0 +1,4 @@
+eggs,3,4
+stirfry,5,4
+grill,4,10
+sandwich,4,2
