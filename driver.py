@@ -27,9 +27,11 @@ def main():
     background_image = "./static/dart.gif"
     dartMap(background_image, win)
     
-    # load venue/classroom object data into appropriate dictionaries for later
-    venues = give_me_venue_dict()
-    classrooms = give_me_classroom_dict()
+    # load data from dictionary populating functions in 'load_data'
+    foods = make_foods("./static/foods.txt")
+    stations = make_stations("./static/stations.txt", foods)
+    venues = make_venues("./static/venues.txt", stations)
+    classrooms = make_classrooms("./static/classrooms.txt")
     
     if (DEBUG_GRAPH == True):
         # draw grid on background so we can see nodes of map
@@ -60,10 +62,12 @@ def main():
     for v in x:
         print v
 
-    # print x and y of mouse click (for testing)         
-    while True:
-        w = win.getMouse()
-        print "x: " + str(w.x) + " y: " + str(w.y) 
+    
+    if (DEBUG_GRAPH == True):
+        # print x and y of mouse click (for testing)        
+        while True:
+            w = win.getMouse()
+            print "x: " + str(w.x) + " y: " + str(w.y) 
     
   
 
