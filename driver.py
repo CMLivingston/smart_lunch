@@ -18,6 +18,7 @@ from bfs import *
 # #
 # # MACROS
 DEBUG_GRAPH = True
+GIVE_MOUSE_POS = False
 
 
 def main():
@@ -53,18 +54,19 @@ def main():
             l.draw(win)
             i = i + 1
     
-    if (DEBUG_GRAPH == True):
         # change this around to any of the vertex names found in 'vertices.txt'
         graphTest('reed hall', 'wentworth')
     
-    if (DEBUG_GRAPH == True):
+    
+    if (DEBUG_GRAPH == True and GIVE_MOUSE_POS == True):
         # print x and y of mouse click (for testing)        
         while True:
             w = win.getMouse()
             print "x: " + str(w.x) + " y: " + str(w.y) 
     
   
-
+    
+    
 
 ## helper functions 
 #

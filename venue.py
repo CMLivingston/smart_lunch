@@ -17,7 +17,7 @@ class Venue:
         self.served = 0
         
     def __str__(self):
-        return str(self.name) + ", located at: (" + str(self.x) + ", " + str(self.y) + ")."
+        return str(self.name)
      
     def __deepcopy__(self, memo):
         return self

@@ -1,6 +1,6 @@
-silsby east; silsby south, nmain1; 273, 39
-nmain1; silsby east, silsby south, carson, nmain2; 312, 39
-nmain2; nmain3, silsby south, baker west, silsby east; 312, 78
+silsby hall; silsby south, nmain1; 273, 39
+nmain1; silsby hall, silsby south, carson, nmain2; 312, 39
+nmain2; nmain3, silsby south, baker west, silsby hall; 312, 78
 baker west; nmain2, baker mid; 351, 78
 baker mid; baker west, baker east; 390, 78
 baker east; bels, baker mid, sae, baker east lawn; 429, 78
@@ -22,8 +22,8 @@ rauner e; rauner ne, wentworth; 469, 195
 rauner w; rauner nw, bsl; 430, 195
 baker south; baker mid, rauner nw; 390, 156
 bsl; rauner w; 390, 195
-vac; vac court; 546, 626
-vac court; hop, hood; 508, 588
+visual arts center; vac court; 546, 626
+vac court; visual arts center, hop, hood; 508, 588
 hood; vac court, wilson lawn; 507, 547
 wilson lawn; hop enterance, hood, wilson; 509, 510
 wilson; crosswalk, wilson lawn; 508, 471
@@ -43,12 +43,12 @@ foco; south mass court, collis nw; 197, 393
 south mass court; foco, collis nw; 235, 354
 reed hall; crosswalk, reed ne; 509, 393
 reed ne; reed hall, dartmouth hall south, collegest8; 509, 354
-dartmouth hall south; reed ne, collegest8, dartmouth hall north; 547, 314
-dartmouth hall north; dartmouth hall south, wentworth e, collegest8; 548, 276
+dartmouth hall south; reed ne, collegest8, dartmouth hall; 547, 314
+dartmouth hall; dartmouth hall south, wentworth e, collegest8; 548, 276
 wentworth; rauner e, wentworth e, collegest7; 509, 238
-wentworth e; wentworth, dartmouth hall north; 548, 238
-collegest7; wentworth, dartmouth hall north, collegest8, dartmouth hall south; 509, 276
-collegest8; collegest7, dartmouth hall south, dartmouth hall north, reed ne, green e; 509, 315
+wentworth e; wentworth, dartmouth hall; 548, 238
+collegest7; wentworth, dartmouth hall, collegest8, dartmouth hall south; 509, 276
+collegest8; collegest7, dartmouth hall south, dartmouth hall, reed ne, green e; 509, 315
 green e; collegest8, green e1; 470, 315
 green e1; green e, green w1; 431, 316
 green w1; green e1, green w; 391, 315
@@ -69,4 +69,4 @@ blunt nw; silsby south, blunt w; 236, 120
 north mass e; blunt sw, blunt s; 235, 237
 mass e; south mass ne, north mass e; 235, 275
 south mass ne; mass e, south mass court; 235, 315
-silsby south; silsby east, blunt nw, nmain1, nmain2, nmain3; 275, 81
+silsby south; silsby hall, blunt nw, nmain1, nmain2, nmain3; 275, 81
