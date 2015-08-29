@@ -170,7 +170,7 @@ def test():
     for classroom in classrooms:
         print classrooms[classroom], classrooms[classroom].x, classrooms[classroom].y
     for student in students:
-        print "Student " + str(student.id)
+        print "Student " + str(student.id) + ", located at: (" + str(student.x) + ", " + str(student.y) + ")"
         for preference in student.preferences:
             if preference[1] == 0:
                 print preference[0].name, ":", "prepared"
