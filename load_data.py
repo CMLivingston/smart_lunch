@@ -73,52 +73,42 @@ def make_venues(filepath, stations):
     
     return venues
 
-
-
-
-def give_me_classroom_dict():
+def make_classrooms(filepath):
     
-    classes = {}
-    
-    file_str = "./static/classrooms.txt"
+    classrooms = {}
     
     # for each classroom in data file, extract its attributes and populate classroom dictionary for use in driver.py
-    
-    in_file = open(file_str, 'r')
-    
+    in_file = open(filepath, 'r')
     for line in in_file:
-        
         x = line.strip()
         s = x.split(',')
-        
         c = Classroom(s[0],int(s[1]),int(s[2]))
-      
-        classes[s[0]] = c
-    
+        classrooms[s[0]] = c
     in_file.close()
     
-    return classes
-
-
-
+    return classrooms
 
 def test():
    
     foods = make_foods("./static/foods.txt")
     stations = make_stations("./static/stations.txt", foods)
     venues = make_venues("./static/venues.txt", stations)
+    classrooms = make_classrooms("./static/classrooms.txt")
+    print "FOODS:"
     for food in foods:
         print food.name, food.chance
+    print "STATIONS:"
     for station in stations:
         for s in stations[station]:
             print s.name
+    print "VENUES:"
     for venue in venues:
         print venues[venue].name
         for station in venues[venue].stations:
             print station
+    print "CLASSROOMS:"
+    for classroom in classrooms:
+        print classrooms[classroom], classrooms[classroom].x, classrooms[classroom].y
             
-
-
-
 if __name__ == "__main__":
     test()
