@@ -51,7 +51,6 @@ def main():
             i = i + 1
     
     
-    
     # load graph data structure with nodes representing Dartmouth campus
     g = load_graph()
     start = g['baker east']
@@ -67,7 +66,13 @@ def main():
         print "x: " + str(w.x) + " y: " + str(w.y) 
     
   
- 
+
+
+## helper functions 
+#
+#
+#
+#
 # draws Dartmouth map into provided graphics window
 def dartMap(im, win):
     p = Point(434, 320)
@@ -76,5 +81,11 @@ def dartMap(im, win):
 
 
 
+#
+#
+#
+#
+#
+#
 main()
 

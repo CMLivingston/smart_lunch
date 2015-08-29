@@ -28,13 +28,23 @@ def load_graph():
         vertex = Vertex()
         x = line.strip()
         s = x.split(';')
-        d = s[2].strip()
-        f = d.split(',')
-        vertex.name = s[0]
-        vertex.x = f[0]
-        vertex.y = f[1]
-        vertex_dict[vertex.name] = vertex
         
+        # handy error reporting so i know which line in 'verticies.txt' is bad and is causing any errors
+        try:
+            d = s[2].strip()
+        except IndexError:
+            print "error on: " + str(s)
+        
+        f = d.split(',')
+        # handy error reporting so i know which line in 'verticies.txt' is bad and is causing any errors
+        try:
+            vertex.name = s[0]
+            vertex.x = f[0]
+            vertex.y = f[1]
+            vertex_dict[vertex.name] = vertex       
+        except IndexError:
+            print "error on: " + str(s)
+            
     
     in_file.close()
     

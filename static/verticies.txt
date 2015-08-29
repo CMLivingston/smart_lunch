@@ -1,0 +1,71 @@
+silsby east; silsby south, nmain1; 273, 39
+nmain1; silsby east, silsby south, carson, nmain2; 312, 39
+nmain2; nmain3, silsby south, baker west, silsby east; 312, 78
+baker west; nmain2, baker mid; 351, 78
+baker mid; baker west, baker east; 390, 78
+baker east; bels, baker mid, sae, baker east lawn; 429, 78
+sae; collegest1, novack, wheeler ne, baker east; 468, 39
+carson; novack, nmain1; 351, 3
+novack; carson, sae; 390, 3
+nmain3; silsby south, baker west, nmain2, nmain4; 312, 117
+baker east lawn; bels, sae, baker east, collegest1, wheeler nw; 468, 78
+wheeler nw; bels, baker east lawn, collegest1, wheeler ne; 507, 78
+wheeler ne; wheeler nw, steele hall, collegest1, steele service road;  546, 78
+collegest1; sae, steele service road, wheeler nw, baker east lawn; 507, 39
+steele service road; steele hall, collegest1, wheeler ne, wheeler nw; 546, 39
+steele hall; steele service road, wilder hall, wheeler ne; 585, 39
+wilder hall; steele hall; 624, 39
+bels; baker east lawn, baker east, wheeler nw, rauner nw, rauner ne; 468, 117
+rauner nw; bels, rauner ne, rauner w, baker south, bsl; 430, 156
+rauner ne; bels, rauner nw, rauner e; 468, 156
+rauner e; rauner ne, wentworth; 469, 195
+rauner w; rauner nw, bsl; 430, 195
+baker south; baker mid, rauner nw; 390, 156
+bsl; rauner w; 390, 195
+vac; vac court; 546, 626
+vac court; hop, hood; 508, 588
+hood; vac court, wilson lawn; 507, 547
+wilson lawn; hop enterance, hood, wilson; 509, 510
+wilson; crosswalk, wilson lawn; 508, 471
+hop enterance; hop, wilson lawn; 470, 510
+hop; hop enterance, vac court; 468, 548
+crosswalk; reed hall, wilson; 509, 432
+dart coach; bus stop, hop enterance, wilson, wilson lawn; 469, 471
+bus stop; green south, dart coach; 430, 471
+green south; green s1, bus stop; 430, 431
+green s1; green south, green sw; 392, 432
+green sw; green s1, collis porch; 353, 432
+collis porch; robo, collis, green sw; 314, 432
+collis; collis nw, robo, collis porch; 275, 432
+robo; collis, collis porch, collis nw; 275, 393
+collis nw; foco, south mass court, collis, robo; 236, 294
+foco; south mass court, collis nw; 197, 393
+south mass court; foco, collis nw; 235, 354
+reed hall; crosswalk, reed ne; 509, 393
+reed ne; reed hall, dartmouth hall south, collegest8; 509, 354
+dartmouth hall south; reed ne, collegest8, dartmouth hall north; 547, 314
+dartmouth hall north; dartmouth hall south, wentworth, collegest8; 548, 276
+wentworth; rauner e, dartmouth hall north, collegest7; 509, 238
+collegest7; wentworth, dartmouth hall north, collegest8, dartmouth hall south; 509, 276
+collegest8; collegest7, dartmouth hall south, dartmouth hall north, reed ne, green e; 509, 315
+green e; collegest8, green e1; 470, 315
+green e1; green e, green w1; 431, 316
+green w1; green e1, green w; 391, 315
+green w; green w1, mcnutt e, green nw1, robo ne; 353, 315
+robo n; south mass court, robo ne, mcnutt e; 275, 355
+robo ne; robo n, mcnutt e, green w; 315, 355
+mcnutt e; robo n, robo ne, green w;, mcnutt ne; 315, 315
+nmain4; blunt s, nmain5, nmain3; 315, 159
+nmain5; blunt s, nmain4, nmain6, green nw; 315, 198
+nmain6; green nw, nmain7, nmain5; 315, 238
+nmain7; nmain6, mcnutt e; 315, 276
+green nw; nmain5, nmain6, green nw1; 353, 237
+green nw1; green nw, green w1; 353, 276
+blunt s; nmain5, north mass e, blunt nw, nmain4; 275, 198
+blunt sw; blunt s, north mass e, blunt w; 235, 198
+blunt w; blunt nw, blunt sw; 236, 159
+blunt nw; silsby south, blunt w; 236, 120
+north mass e; blunt sw, blunt s; 235, 237
+mass e; south mass ne, north mass e; 235, 275
+south mass ne; mass e, south mass court; 235, 315
+silsby south; silsby east, blunt nw, nmain1, nmain2, nmain3; 275, 81
