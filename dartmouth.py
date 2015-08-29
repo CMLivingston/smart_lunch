@@ -5,6 +5,9 @@ from venue import *
 from station import *
 from food import *
 from student import *
+import random
+import math
+import copy
 
 def setup():
 
@@ -76,23 +79,38 @@ def setup():
         students = students - 1
 
     # ...and return the students.
+    for student in stud_array:
+        print "Student " + str(student.id)
+        for preference in student.preferences:
+            print preference[0].name
     return stud_array
 
 def make_prefs(venues):
     # first we need to rank the student's venue choices
     ret = [[0 for x in range(2)] for x in range(len(venues))]
-    curr_prob = 1
-    for x in range(0, len(venues)):
-        if x != len(venues) - 1: # first two cycles
-            
+    curr_rank = 0  # keeps track of which rank we're dealing with
+    new_venues = copy.deepcopy(venues)
+    for y in range(0, len(new_venues)):
+        total_prob = 0  # will be upper range of our random num generation
+        for venue in new_venues:
+            total_prob = total_prob + venue.chance
+        bound_matrix = [[0 for z in range(2)] for z in range(len(new_venues))]
+        curr_bound = 0  # keeps track of which boundary we're making
+        for a in range(0, len(new_venues)):
+            curr_bound = curr_bound + new_venues[a].chance
+            bound_matrix[a][0] = new_venues[a]
+            bound_matrix[a][1] = curr_bound
+        pref = random.uniform(0, total_prob)  # randomly generated number
+        bottom_bound = 0
+        for b in range(0, len(new_venues)):
+            if pref >= bottom_bound and pref <= bound_matrix[b][1]:
+                ret[curr_rank][0] = new_venues[b]
+                new_venues.remove(new_venues[b])
+                curr_rank = curr_rank + 1
+                break
+            else:
+                bottom_bound = bound_matrix[b][1]
 
-        else: # remaining is third choice by default
-            ret[len(ret) - 1] = venues[0]
-
-
-
-
-
-
+    return ret
 
 setup()

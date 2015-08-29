@@ -19,6 +19,9 @@ class Venue:
     def __str__(self):
         return str(self.name) + ", located at: (" + str(self.x) + ", " + str(self.y) + ")."
      
+    def __deepcopy__(self, memo):
+        return self
+
 def test():
     v = Venue("The Hop", 40, 50, 40, 30)
     print v
