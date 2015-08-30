@@ -95,7 +95,7 @@ def make_student(filepath, idnum, classroom, venues):
     s = x.split(',')
     preferences = make_prefs(venues, idnum)
     times = []
-    stud = Student(idnum, classroom.x, classroom.y, int(s[0]), int(s[1]), preferences, times, False)
+    stud = Student(idnum, int(classroom.x), int(classroom.y), int(s[0]), int(s[1]), preferences, times, False)
     return stud
 
 def make_prefs(venues, idnum):

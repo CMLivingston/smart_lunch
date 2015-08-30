@@ -1,5 +1,6 @@
 from math import *
-def dist(x2,x1,y2,y1):
+
+def dist(x1,y1,x2,y2):
     
     f2 = pow(x2-x1,2)
     f1 = pow(y2-y1,2)
