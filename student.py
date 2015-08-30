@@ -119,6 +119,7 @@ class Student:
         
         # TRIP DISTANCE in pixels
         trip_dist = len(path)*39
+        print str(trip_dist) + "is it in PIXS"
         
         
         # print the shortest path to students preference
