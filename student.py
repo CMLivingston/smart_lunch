@@ -28,10 +28,10 @@ class Student:
         return "Student " + str(self.id)
 
     def run(self):
-
+        pass
     
     def wait(self, duration):
-
+        pass
     # draw movement of a point from one vertex to the next
     def makeMove(self, start, end, window, is_final_dest):
         
@@ -100,9 +100,7 @@ class Student:
    
       
     def goToLunch(self, start_name, window):
-        
-        
-        
+         
         g = load_graph()
         
         start = g[start_name]
@@ -111,6 +109,10 @@ class Student:
         
         end = g[str(pref)]
         path = bfs(start, end)
+        
+        # TRIP DISTANCE in pixels
+        trip_dist = len(path)*39
+        
         
         # print the shortest path to students preference
         i = len(path) - 1
