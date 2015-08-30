@@ -155,32 +155,38 @@ class Student:
       
         print "Student arrived at destination "  + str(path[i].name) 
 
-    def makeTravelDist(self, pixel_dist):
-        # 39 px = 88 ft
-        px = 39
-        feet = 88
-        ret = (pixel_dist * feet) / px
-        return ret
-
     def run(self):
         # wait to leave the classroom
         class_wait_time = self.classroom.line_spot(self) * self.classroom.exit_time
         yield self.env.timeout(class_wait_time)
-        print ("Student %d left %s at %d" % (self.id, self.classroom, self.env.now))
+        print ("Student %d left %s at %s" % (self.id, self.classroom, convertToMin(self.env.now)))
         self.moving = True
 
         # go to venue
         v = self.preferences[0]
-        travel_dist = self.makeTravelDist(self.findLunchPath(self.classroom.name))
+        travel_dist = makeTravelDist(self.findLunchPath(self.classroom.name))
         travel_time = travel_dist / self.speed
         yield self.env.timeout(travel_time)
-        print ("Student %d arrived at %s at %d" % (self.id, v[0].name, self.env.now))
+        print ("Student %d arrived at %s at %s" % (self.id, v[0].name, convertToMin(self.env.now)))
 
 
 def dartMap(im, win):
     p = Point(434, 320)
     i = Image(p, im)
     i.draw(win)
+
+def convertToMin(seconds):
+    m, s = divmod(seconds, 60)
+    m = str(int(m))
+    s = str(int(s)).zfill(2)
+    return m + ":" + s
+
+def makeTravelDist(pixel_dist):
+    # 39 px = 88 ft
+    px = 39
+    feet = 88
+    ret = (pixel_dist * feet) / px
+    return ret
 
 def test():
     

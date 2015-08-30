@@ -1,5 +1,5 @@
 # sandbox for simpy stuff
-import simpy as simp
+import simpy as simpy
 from load_data import *
 
 def test():
@@ -22,5 +22,9 @@ def test():
         stud_id = stud_id + 1
 
     env.run(until=5000)
+
+def convertToMin(seconds):
+	m, s = divmod(seconds, 60)
+	return str(m) + ":" + str(s)
 
 test()
