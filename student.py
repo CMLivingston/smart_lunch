@@ -39,8 +39,8 @@ class Student:
         MOVE_INCREMENT = 1
         
         
-        print "Moving from " + str(start) + " to " + str(end) 
-        print "My current pos: " + str(self.x) + "," + str(self.y)
+        #print "Moving from " + str(start) + " to " + str(end) 
+        #print "My current pos: " + str(self.x) + "," + str(self.y)
         
         self.x = start.x
         self.y = start.y
@@ -49,6 +49,8 @@ class Student:
 
         i = 0
         
+        # each cell of the map is 39x39 and this draws one pixel at a time 
+        # at a given SIMULATION speed until you draw all 39 ( you made it to end node )
         while (i != 39):
        
             i = i+1
@@ -80,6 +82,7 @@ class Student:
         p.undraw()
         self.x = end.x
         self.y = end.y 
+        
         # if this is the last move until the food destination
         if (is_final_dest == True):
             
@@ -88,30 +91,34 @@ class Student:
             p = Point(self.x,self.y)
             p.draw(window)
         
-        # done
-        print "arrived"
+        # done with this move
    
       
     def goToLunch(self, start_name, window):
+        
+        
+        
         g = load_graph()
         
         start = g[start_name]
+        # Jasper: maybe change below line to make random? 
         pref = self.preferences[0][0]
+        
         end = g[str(pref)]
         path = bfs(start, end)
         
+        # print the shortest path to students preference
         i = len(path) - 1
         print "Path for student: " + str(self)
         while (i >= 0):
-            
             print path[i]
             i = i-1
         
+        print " "
+        print "Student heading to lunch from " + "(" + str(start_name) + ")"
         
-        # important! index path BACKWARDS
+        # important! index path BACKWARDS (shortest path is dict of BACKPOINTERS)
         i = len(path) - 1
-        print "drawing first avatars path"
-       
         while (i > 0):
            
             print path[i].name
@@ -123,8 +130,8 @@ class Student:
                 
             self.makeMove(path[i], path[i-1], window, is_final) 
             i = i-1
-        
-        print "done"      
+      
+        print "Student arrived at destination "  + str(path[i].name)    
 
 
 
@@ -148,13 +155,16 @@ def test():
     stations = make_stations("./static/stations.txt", foods)
     venues = make_venues("./static/venues.txt", stations)
     classrooms = make_classrooms("./static/classrooms.txt")
-    
+    # make preferences
     preferences = make_prefs(venues, 1)
     
     # make the student and send him to lunch
     s = make_student("./static/student.txt", 1, classrooms["silsby hall"], venues)
+    # can be any name in classrooms.txt
     s.goToLunch("dartmouth hall", win)
     
+    
+    # close on click 
     win.getMouse()
     win.close()
 
