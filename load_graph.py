@@ -39,8 +39,10 @@ def load_graph():
         # handy error reporting so i know which line in 'verticies.txt' is bad and is causing any errors
         try:
             vertex.name = s[0]
-            vertex.x = f[0]
-            vertex.y = f[1]
+            fe = f[0]
+            fz = f[1]
+            vertex.x = int(fe)
+            vertex.y = int(fz)
             vertex_dict[vertex.name] = vertex       
         except IndexError:
             print "error on: " + str(s)
