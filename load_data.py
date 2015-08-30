@@ -88,14 +88,14 @@ def make_classrooms(filepath):
     
     return classrooms
 
-def make_student(filepath, idnum, classroom, venues):
+def make_student(filepath, idnum, classroom, venues, env):
     in_file = open(filepath, 'r')
     l = in_file.readline()
     x = l.strip()
     s = x.split(',')
     preferences = make_prefs(venues, idnum)
     times = []
-    stud = Student(idnum, int(classroom.x), int(classroom.y), int(s[0]), int(s[1]), preferences, times, False)
+    stud = Student(idnum, int(classroom.x), int(classroom.y), int(s[0]), int(s[1]), preferences, times, env)
     return stud
 
 def make_prefs(venues, idnum):
@@ -151,7 +151,7 @@ def test():
     students = []
     # make ten sample students
     while stud_id < 10:
-        s = make_student("./static/student.txt", stud_id, classrooms["wilder hall"], venues)
+        s = make_student("./static/student.txt", stud_id, classrooms["wilder hall"], venues, 0)
         students.append(s)
         stud_id = stud_id + 1
     print "FOODS:"

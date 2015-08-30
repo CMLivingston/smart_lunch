@@ -6,11 +6,11 @@ from graphics import *
 from bfs import *
 from dist import dist
 import time
-# NOTE : (CHIRS) Attempting to make a function that draws animaton of avatar going form one node to next
+import simpy
 
 class Student:
 
-    def __init__(self, idnum, x, y, speed, tolerance, preferences, times, has_food):
+    def __init__(self, idnum, x, y, speed, tolerance, preferences, times, env):
       
         self.id = idnum
         self.x = int(x)
@@ -20,12 +20,10 @@ class Student:
         self.preferences = preferences
         self.times = times
         self.has_food = False
+        self.moving = False
 
     def __str__(self): 
         return "Student " + str(self.id)
-
-    def hasFood(self):
-        return self.has_food
     
     # draw movement of a point from one vertex to the next
     def makeMove(self, start, end, window, is_final_dest):
@@ -151,8 +149,9 @@ def test():
     
     preferences = make_prefs(venues, 1)
     
+    env = simpy.Environment()
     # make the student and send him to lunch
-    s = make_student("./static/student.txt", 1, classrooms["silsby hall"], venues)
+    s = make_student("./static/student.txt", 1, classrooms["silsby hall"], venues, env)
     s.goToLunch("dartmouth hall", win)
     
     win.getMouse()
