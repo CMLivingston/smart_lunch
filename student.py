@@ -156,9 +156,9 @@ class Student:
         print "Student arrived at destination "  + str(path[i].name) 
 
     def makeTravelDist(self, pixel_dist):
-        # 39 px = 50 ft
+        # 39 px = 88 ft
         px = 39
-        feet = 50
+        feet = 88
         ret = (pixel_dist * feet) / px
         return ret
 
@@ -171,7 +171,7 @@ class Student:
 
         # go to venue
         v = self.preferences[0]
-        travel_dist = self.makeTravelDist(self.findLunchPath(v[0].name))
+        travel_dist = self.makeTravelDist(self.findLunchPath(self.classroom.name))
         travel_time = travel_dist / self.speed
         yield self.env.timeout(travel_time)
         print ("Student %d arrived at %s at %d" % (self.id, v[0].name, self.env.now))
