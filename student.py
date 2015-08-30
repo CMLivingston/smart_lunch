@@ -16,7 +16,7 @@ class Student:
         self.id = idnum
         self.x = int(x)
         self.y = int(y)
-        self.speed = int(speed)
+        self.speed = float(speed)
         self.tolerance = int(tolerance)
         self.classroom = classroom
         self.preferences = preferences
@@ -32,12 +32,6 @@ class Student:
 
     def __str__(self): 
         return "Student " + str(self.id)
-
-    def run(self):
-        # wait to leave the classroom
-        wait_time = self.classroom.line_spot(self) * self.classroom.exit_time
-        yield self.env.timeout(wait_time)
-        print ("Student %d left %s at %d" % (self.id, self.classroom, self.env.now))
 
     # draw movement of a point from one vertex to the next
     def makeMove(self, start, end, window, is_final_dest):
@@ -104,8 +98,22 @@ class Student:
             p.draw(window)
         
         # done with this move
-   
-      
+    
+    # non-graphics option
+    def findLunchPath(self, start_name):
+        g = load_graph()
+        
+        start = g[start_name]
+        # Jasper: maybe change below line to make random? 
+        pref = self.preferences[0][0]
+        
+        end = g[str(pref)]
+        path = bfs(start, end)
+        
+        # TRIP DISTANCE in pixels
+        trip_dist = len(path)*39
+        return trip_dist
+
     def goToLunch(self, start_name, window):
          
         g = load_graph()
@@ -146,8 +154,28 @@ class Student:
             self.makeMove(path[i], path[i-1], window, is_final) 
             i = i-1
       
-        print "Student arrived at destination "  + str(path[i].name)    
+        print "Student arrived at destination "  + str(path[i].name) 
 
+    def makeTravelDist(self, pixel_dist):
+        # 39 px = 50 ft
+        px = 39
+        feet = 50
+        ret = (pixel_dist * feet) / px
+        return ret
+
+    def run(self):
+        # wait to leave the classroom
+        class_wait_time = self.classroom.line_spot(self) * self.classroom.exit_time
+        yield self.env.timeout(class_wait_time)
+        print ("Student %d left %s at %d" % (self.id, self.classroom, self.env.now))
+        self.moving = True
+
+        # go to venue
+        v = self.preferences[0]
+        travel_dist = self.makeTravelDist(self.findLunchPath(v[0].name))
+        travel_time = travel_dist / self.speed
+        yield self.env.timeout(travel_time)
+        print ("Student %d arrived at %s at %d" % (self.id, v[0].name, self.env.now))
 
 
 def dartMap(im, win):

@@ -16,6 +16,11 @@ def test():
         classrooms["wilder hall"].departure_queue.append(s)
         stud_id = stud_id + 1
 
-    env.run(until=50)
+    while stud_id < 20:
+        s = make_student("./static/student.txt", stud_id, classrooms["dartmouth hall"], venues, env)
+        classrooms["dartmouth hall"].departure_queue.append(s)
+        stud_id = stud_id + 1
+
+    env.run(until=5000)
 
 test()
