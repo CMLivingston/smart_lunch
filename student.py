@@ -7,30 +7,38 @@ from bfs import *
 from dist import dist
 import time
 import simpy
+import classrooms
 
 class Student:
 
-    def __init__(self, idnum, x, y, speed, tolerance, preferences, times, env):
+    def __init__(self, idnum, x, y, speed, tolerance, classroom, preferences, env):
       
         self.id = idnum
         self.x = int(x)
         self.y = int(y)
         self.speed = int(speed)
         self.tolerance = int(tolerance)
+        self.classroom = classroom
         self.preferences = preferences
-        self.times = times
+        self.times = []
         self.env = env
         self.action = env.process(self.run())
-        self.has_food = False
         self.moving = False
+        self.food_wait = False
+        self.pay_wait = False
+        self.has_food = False
+        self.iot = False
+        
 
     def __str__(self): 
         return "Student " + str(self.id)
 
     def run(self):
-
-    
-    def wait(self, duration):
+        # wait to leave the classroom
+        print "Leaving class..."
+        wait_time = self.classroom.line_spot(self) * self.classroom.exit_time
+        yield self.env.timeout(wait_time)
+        print ("Left at %d" % env.now)
 
     # draw movement of a point from one vertex to the next
     def makeMove(self, start, end, window, is_final_dest):
@@ -144,9 +152,6 @@ def dartMap(im, win):
     p = Point(434, 320)
     i = Image(p, im)
     i.draw(win)
-
-
-
 
 def test():
     

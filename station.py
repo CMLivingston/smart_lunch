@@ -10,7 +10,7 @@ class Station:
         
         self.name = name
         self.cook_time = cook_time
-        self.food_line = Queue.Queue(maxsize=0)
+        self.food_line = []
         self.cook_surface = Queue.Queue(maxsize=max_items)
         self.food = food
         

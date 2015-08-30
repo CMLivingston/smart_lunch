@@ -1,8 +1,6 @@
 ## Venue class
 ## 
 
-import Queue
-
 class Venue:
     
     def __init__(self, name, x, y, chance, cashier_wait, stations):
@@ -11,7 +9,7 @@ class Venue:
         self.x = x
         self.y = y
         self.chance = chance
-        self.cashier_line = Queue.Queue(maxsize=0)
+        self.cashier_line = []
         self.cashier_wait = cashier_wait
         self.stations = stations
         self.served = 0
