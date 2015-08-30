@@ -127,6 +127,7 @@ class Student:
         
         # TRIP DISTANCE in pixels
         trip_dist = len(path)*39
+        print str(trip_dist) + "is it in PIXS"
         
         
         # print the shortest path to students preference
@@ -154,6 +155,13 @@ class Student:
             i = i-1
       
         print "Student arrived at destination "  + str(path[i].name) 
+        
+    def makeTravelDist(self, pixel_dist):
+        # 39 px = 88 ft
+        px = 39
+        feet = 88
+        ret = (pixel_dist * feet) / px
+        return ret
 
     def run(self):
         # wait to leave the classroom

@@ -1,5 +1,5 @@
 # sandbox for simpy stuff
-import simpy as simpy
+import simpy
 from load_data import *
 
 def test():
