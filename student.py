@@ -157,9 +157,9 @@ class Student:
         print "Student arrived at destination "  + str(path[i].name) 
 
     def makeTravelDist(self, pixel_dist):
-        # 39 px = 50 ft
+        # 39 px = 88 ft
         px = 39
-        feet = 50
+        feet = 88
         ret = (pixel_dist * feet) / px
         return ret
 
