@@ -141,8 +141,6 @@ def dartMap(im, win):
     i.draw(win)
 
 
-
-
 def test():
     
     # create a graphics window for the simulation and for the objects to be drawn on   
