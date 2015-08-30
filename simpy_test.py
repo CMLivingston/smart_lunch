@@ -3,12 +3,12 @@ import simpy as simpy
 from load_data import *
 
 def test():
+    env = simpy.Environment()
     foods = make_foods("./static/foods.txt")
-    stations = make_stations("./static/stations.txt", foods)
-    venues = make_venues("./static/venues.txt", stations)
+    stations = make_stations("./static/stations.txt", foods, env)
+    venues = make_venues("./static/venues.txt", stations, env)
     classrooms = make_classrooms("./static/classrooms.txt")
 
-    env = simpy.Environment()
     stud_id = 0
 
     while stud_id < 10:

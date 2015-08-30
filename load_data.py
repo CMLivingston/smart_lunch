@@ -24,7 +24,7 @@ def make_foods(filepath):
 
     return foods
 
-def make_stations(filepath, foods):
+def make_stations(filepath, foods, env):
 
     in_file = open(filepath, 'r')
     stations = {}
@@ -39,7 +39,7 @@ def make_stations(filepath, foods):
         station_name = s[0]
         for food in foods:
             if station_name == food.name:
-                station = Station(s[0], int(s[1]), int(s[2]), food)
+                station = Station(s[0], int(s[1]), int(s[2]), food, env)
                 if s[3] == "hop":
                     hop_stations.append(station)
                 elif s[3] == "collis":
@@ -52,7 +52,7 @@ def make_stations(filepath, foods):
 
     return stations
 
-def make_venues(filepath, stations):
+def make_venues(filepath, stations, env):
     
     venues = {}
     
@@ -64,7 +64,7 @@ def make_venues(filepath, stations):
         x = line.strip()
         s = x.split(',')
         # construct a veune for placement into dict
-        v = Venue(s[0],int(s[1]),int(s[2]),float(s[3]),int(s[4]),stations[s[5]])
+        v = Venue(s[0],int(s[1]),int(s[2]),float(s[3]),int(s[4]),stations[s[5]],env)
       
         # put name string as index of dict
         venues[s[0]] = v
