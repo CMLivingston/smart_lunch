@@ -37,7 +37,7 @@ class Student:
         # wait to leave the classroom
         wait_time = self.classroom.line_spot(self) * self.classroom.exit_time
         yield self.env.timeout(wait_time)
-        print ("Student %d left at %d" % self.id, self.env.now)
+        print ("Student %d left %s at %d" % (self.id, self.classroom, self.env.now))
 
     # draw movement of a point from one vertex to the next
     def makeMove(self, start, end, window, is_final_dest):
