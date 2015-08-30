@@ -16,6 +16,10 @@ class Station:
         
     def __str__(self):
         return str(self.name) 
+
+    def line_spot(self, student):
+        if student in self.food_line:
+            return self.food_line.index(student)
      
 def test():
     f = Food("Eggs", 0, .35)

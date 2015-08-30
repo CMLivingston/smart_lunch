@@ -21,10 +21,6 @@ def test():
         classrooms["dartmouth hall"].departure_queue.append(s)
         stud_id = stud_id + 1
 
-    env.run(until=5000)
-
-def convertToMin(seconds):
-	m, s = divmod(seconds, 60)
-	return str(m) + ":" + str(s)
+    env.run(until=4500) # 75 minutes
 
 test()

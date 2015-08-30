@@ -1,4 +1,4 @@
-eggs,3,4,collis
-stirfry,5,4,collis
-grill,4,10,hop
-sandwich,4,2,hop
+eggs,180,4,collis
+stirfry,300,4,collis
+grill,240,10,hop
+sandwich,240,2,hop

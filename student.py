@@ -25,11 +25,11 @@ class Student:
         self.action = env.process(self.run())
         self.moving = False
         self.food_wait = False
-        self.pay_wait = False
         self.has_food = False
-        self.iot = False
+        self.pay_wait = False
+        self.has_paid = False
+        self.smart = False
         
-
     def __str__(self): 
         return "Student " + str(self.id)
 
@@ -160,6 +160,7 @@ class Student:
         class_wait_time = self.classroom.line_spot(self) * self.classroom.exit_time
         yield self.env.timeout(class_wait_time)
         print ("Student %d left %s at %s" % (self.id, self.classroom, convertToMin(self.env.now)))
+        self.times.append(self.env.now) # record departure time
         self.moving = True
 
         # go to venue
@@ -168,6 +169,45 @@ class Student:
         travel_time = travel_dist / self.speed
         yield self.env.timeout(travel_time)
         print ("Student %d arrived at %s at %s" % (self.id, v[0].name, convertToMin(self.env.now)))
+        self.times.append(self.env.now) # record arrival time
+        self.moving = False
+        self.food_wait = True
+
+        # get on food line, or get on cashier line if novack or prep
+        if(v[0].name != "novack" and v[1] != 0): # made-to-order
+            # get on line
+            v[1].food_line.append(self)
+            # find out how long to wait
+            people_ahead = v[1].line_spot(self)
+            print "Student %d joined the %s line at position %d at %s" % (self.id, v[1].name, people_ahead+1, convertToMin(self.env.now))
+            food_wait_time = (people_ahead + 1) * v[1].cook_time
+            # and wait that long
+            yield self.env.timeout(food_wait_time)
+            print "Student %d received %s at %s" % (self.id, v[1].name, convertToMin(self.env.now))
+            
+            # now time to pay
+            v[0].cashier_line.append(self)
+            # find out how long to wait
+            people_ahead = v[0].line_spot(self)
+            print "Student %d joined the checkout line at position %d at %s" % (self.id, people_ahead+1, convertToMin(self.env.now))
+            pay_wait_time = (people_ahead + 1) * v[0].cashier_wait
+            yield self.env.timeout(pay_wait_time)
+            print "Student %d paid at %s" % (self.id, convertToMin(self.env.now))
+        
+        else:
+            if(v[0].name != "novack"):
+                prep_fetch_time = 60
+                print "Student %d is fetching their prepared food" % self.id
+                yield self.env.timeout(prep_fetch_time)
+            # now time to pay
+            v[0].cashier_line.append(self)
+            # find out how long to wait
+            people_ahead = v[0].line_spot(self)
+            print "Student %d joined the checkout line at position %d at %s" % (self.id, people_ahead+1, convertToMin(self.env.now))
+            pay_wait_time = (people_ahead + 1) * v[0].cashier_wait
+            yield self.env.timeout(pay_wait_time)
+            print "Student %d paid at %s" % (self.id, convertToMin(self.env.now))
+    
 
 
 def dartMap(im, win):

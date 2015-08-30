@@ -16,9 +16,10 @@ class Venue:
         
     def __str__(self):
         return str(self.name)
-     
-    def __deepcopy__(self, memo):
-        return self
+
+    def line_spot(self, student):
+        if student in self.cashier_line:
+            return self.cashier_line.index(student)
 
 def test():
     v = Venue("The Hop", 40, 50, 40, 30)
