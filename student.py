@@ -7,7 +7,7 @@ from bfs import *
 from dist import dist
 import time
 import simpy
-import classrooms
+import classroom
 
 class Student:
 
@@ -35,10 +35,9 @@ class Student:
 
     def run(self):
         # wait to leave the classroom
-        print "Leaving class..."
         wait_time = self.classroom.line_spot(self) * self.classroom.exit_time
         yield self.env.timeout(wait_time)
-        print ("Left at %d" % env.now)
+        print ("Student %d left at %d" % self.id, self.env.now)
 
     # draw movement of a point from one vertex to the next
     def makeMove(self, start, end, window, is_final_dest):
