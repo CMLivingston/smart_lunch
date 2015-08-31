@@ -1,12 +1,13 @@
 # sandbox for simpy stuff
 import simpy
+import venue
 from load_data import *
 
 def test():
     env = simpy.Environment()
     foods = make_foods("./static/foods.txt")
-    stations = make_stations("./static/stations.txt", foods, env)
-    venues = make_venues("./static/venues.txt", stations, env)
+    stations = make_stations("./static/stations.txt", foods)
+    venues = make_venues("./static/venues.txt", stations)
     classrooms = make_classrooms("./static/classrooms.txt")
 
     stud_id = 0

@@ -1,10 +1,9 @@
 ## Venue class
 ## 
-import simpy
 
-class Venue:
+class Venue(object):
     
-    def __init__(self, name, x, y, chance, cashier_wait, stations, env):
+    def __init__(self, name, x, y, chance, cashier_wait, stations):
         
         self.name = name
         self.x = x
