@@ -211,7 +211,6 @@ class Student(object):
                 curr_pref = self.preferences[1]
                 venue = curr_pref[0]
                 station = curr_pref[1]
-                print "REROUTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
                 print "Student %d is rerouting to %s" % (self.id, venue.name)
                 # go to venue
                 travel_dist = makeTravelDist(self.findLunchPath(nodes[curr_index].name))
