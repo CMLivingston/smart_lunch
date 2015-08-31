@@ -238,7 +238,6 @@ class Student(object):
             people_ahead = venue.line_spot(self)
             print "Student %d joined the checkout line at position %d at %s" % (self.id, people_ahead+1, convertToMin(self.env.now))
             pay_wait_time = (people_ahead + 1) * venue.cashier_wait
-            yield self.env.timeout(pay_wait_time)
             # and wait
             yield self.env.timeout(pay_wait_time)
             # now we record the wait time at venue and the time they have to eat
