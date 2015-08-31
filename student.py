@@ -23,11 +23,7 @@ class Student(object):
         self.times = []
         self.env = env
         self.action = env.process(self.run())
-        self.moving = False
-        self.food_wait = False
         self.has_food = False
-        self.pay_wait = False
-        self.has_paid = False
         self.smart = False
         
     def __str__(self): 
@@ -169,7 +165,6 @@ class Student(object):
         yield self.env.timeout(class_wait_time)
         print ("Student %d left %s at %s" % (self.id, self.classroom, convertToMin(self.env.now)))
         depart_time = self.env.now
-        self.moving = True
 
         # go to venue
         curr_pref = self.preferences[0]
@@ -180,8 +175,6 @@ class Student(object):
         yield self.env.timeout(travel_time)
         print ("Student %d arrived at %s at %s" % (self.id, venue.name, convertToMin(self.env.now)))
         arrival_time = self.env.now
-        self.moving = False
-        self.food_wait = True
 
         # get on food line, then get on cashier line
         if(venue.name != "novack" and station != 0): # made-to-order
@@ -199,10 +192,12 @@ class Student(object):
             station.cook_line.append(self)
             while station.cook_line.index(self) != 0:  # if we aren't about to go on the grill, wait
                 yield self.env.timeout(station.place_order_time)
-            while station.is_full():  # once they're at the front, wait until spot on grill opens up
+            while station.is_full():  # once they're at the front, wait until spot on grill opens up (and increment the time_full)
+                station.time_full = station.time_full + station.place_order_time
                 yield self.env.timeout(station.place_order_time)
             station.cook_line.remove(self)  # now we go off the cook line and begin cooking
             station.cook_surface.append(self)
+            print "Student %d's food started cooking at %s" % (self.id, convertToMin(self.env.now))
             yield self.env.timeout(station.cook_time)
             station.cook_surface.remove(self)
             print "Student %d received %s at %s" % (self.id, station.name, convertToMin(self.env.now))
@@ -225,6 +220,7 @@ class Student(object):
             self.times.append(remaining_time)
             print "Student %d paid at %s" % (self.id, convertToMin(self.env.now))
             venue.cashier_line.remove(self)
+            self.has_food = True
         
         # if it's novack or prepared food, just get on cashier line (after delay for hop/collis)
         else:
@@ -240,10 +236,14 @@ class Student(object):
             pay_wait_time = (people_ahead + 1) * venue.cashier_wait
             # and wait
             yield self.env.timeout(pay_wait_time)
+            venue.cashier_line.remove(self)
+            self.has_food = True
             # now we record the wait time at venue and the time they have to eat
             pay_time = self.env.now
+            total_time = pay_time
             wait_time = pay_time - arrival_time
             remaining_time = 4500 - pay_time
+            self.times.append(total_time)
             self.times.append(wait_time)
             self.times.append(remaining_time)
             print "Student %d paid at %s" % (self.id, convertToMin(self.env.now))

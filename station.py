@@ -16,6 +16,7 @@ class Station:
         self.max_items = max_items
         self.place_order_time = 15 # constant for all stations, i.e. "can I have a _____"
         self.food = food
+        self.time_full = 0
         
     def __str__(self):
         return str(self.name) 
