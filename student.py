@@ -110,6 +110,17 @@ class Student(object):
         trip_dist = len(path)*39
         return trip_dist
 
+    def findBFS(self, start_name):
+        g = load_graph()
+        
+        start = g[start_name]
+        # Jasper: maybe change below line to make random? 
+        pref = self.preferences[0][0]
+        
+        end = g[str(pref)]
+        path = bfs(start, end)
+        return path
+
     def goToLunch(self, start_name, window):
          
         g = load_graph()
@@ -166,18 +177,52 @@ class Student(object):
         print ("Student %d left %s at %s" % (self.id, self.classroom, convertToMin(self.env.now)))
         depart_time = self.env.now
 
-        # go to venue
         curr_pref = self.preferences[0]
         venue = curr_pref[0]
         station = curr_pref[1]
-        travel_dist = makeTravelDist(self.findLunchPath(self.classroom.name))
-        travel_time = travel_dist / self.speed
-        yield self.env.timeout(travel_time)
-        print ("Student %d arrived at %s at %s" % (self.id, venue.name, convertToMin(self.env.now)))
-        arrival_time = self.env.now
+        arrival_time = 0
+        if self.smart == False:
+            # go to venue
+            travel_dist = makeTravelDist(self.findLunchPath(self.classroom.name))
+            travel_time = travel_dist / self.speed
+            #self.goToLunch(self.classroom.name, win)
+            yield self.env.timeout(travel_time)
+            print ("Student %d arrived at %s at %s" % (self.id, venue.name, convertToMin(self.env.now)))
+            arrival_time = self.env.now
+
+        elif self.smart == True and station != 0:
+            nodes = self.findBFS(self.classroom.name)
+            curr_index = len(nodes) - 1
+            reached_venue = False
+            # keep going unless tolerance exceeds
+            while len(station.food_line) < self.tolerance:
+                self.x = nodes[curr_index].x
+                self.y = nodes[curr_index].y
+                if self.x == nodes[0].x and self.y == nodes[0].y:
+                    reached_venue = True
+                    print ("Student %d arrived at %s at %s" % (self.id, venue.name, convertToMin(self.env.now)))
+                    arrival_time = self.env.now
+                    break
+                next_node_dist = makeTravelDist(39) # each node move is 39 px
+                travel_time = next_node_dist / self.speed
+                yield self.env.timeout(travel_time)
+                curr_index = curr_index - 1
+            if reached_venue == False:
+                curr_pref = self.preferences[1]
+                venue = curr_pref[0]
+                station = curr_pref[1]
+                print "REROUTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                print "Student %d is rerouting to %s" % (self.id, venue.name)
+                # go to venue
+                travel_dist = makeTravelDist(self.findLunchPath(nodes[curr_index].name))
+                travel_time = travel_dist / self.speed
+                #self.goToLunch(self.classroom.name, win)
+                yield self.env.timeout(travel_time)
+                print ("Student %d arrived at %s at %s" % (self.id, venue.name, convertToMin(self.env.now)))
+                arrival_time = self.env.now
 
         # get on food line, then get on cashier line
-        if(venue.name != "novack" and station != 0): # made-to-order
+        if venue.name != "novack" and station != 0: # made-to-order
             # get on line
             station.food_line.append(self)
             # find out how long to wait
