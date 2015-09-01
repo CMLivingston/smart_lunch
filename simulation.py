@@ -92,7 +92,7 @@ def run_dumb_simulation():
         if student.has_food:
             finished_students.append(student)
 
-    averages = get_averages(finished_students)
+    averages = get_averages(finished_students, stations)
 
     old_stdout = sys.stdout
     log_file = open("dumb.log","w")
@@ -104,6 +104,8 @@ def run_dumb_simulation():
     print averages[1]
     print "Average time each student had to eat before class:"
     print averages[2]
+    print "Average time each made-to-order station working at full capacity:"
+    print averages[3]
     print "Number of students who did not receive food:"
     print str(len(all_students) - len(finished_students))
     sys.stdout = old_stdout
@@ -167,7 +169,7 @@ def run_smart_simulation():
         if student.has_food:
             finished_students.append(student)
 
-    averages = get_averages(finished_students)
+    averages = get_averages(finished_students, stations)
 
     old_stdout = sys.stdout
     log_file = open("smart.log","w")
@@ -179,6 +181,8 @@ def run_smart_simulation():
     print averages[1]
     print "Average time each student had to eat before class:"
     print averages[2]
+    print "Average time each made-to-order station working at full capacity:"
+    print averages[3]
     print "Number of students who did not receive food:"
     print str(len(all_students) - len(finished_students))
     sys.stdout = old_stdout
@@ -195,9 +199,10 @@ def get_start_points(filepath):
         start_points.append(string)
     return start_points
 
-def get_averages(students):
+def get_averages(students, stations):
     averages = []
     num_of_students = len(students)
+    num_of_stations = len(stations)
 
     # min to get food
     get_food_total = 0 
@@ -222,6 +227,14 @@ def get_averages(students):
         before_class_total = before_class_total + student.times[2]
     before_class_avg = convertToMin(int(before_class_total / num_of_students))
     averages.append(before_class_avg)
+
+    full_total = 0
+    full_avg = 0
+    for station in stations:
+        for s in stations[station]:
+            full_total = full_total + s.time_full
+    full_avg = convertToMin(int(full_total / num_of_stations))
+    averages.append(full_avg)
 
     return averages
 

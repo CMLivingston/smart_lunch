@@ -223,7 +223,11 @@ class Student(object):
                 curr_pref = self.preferences[1]
                 venue = curr_pref[0]
                 station = curr_pref[1]
+
                 print "Current wait time at " + str(curr_pref) +" exceeds current tolerance." + " Student %d is rerouting to %s" % (self.id, venue.name)
+
+                print "Student %d is rerouting to %s" % (self.id, venue.name)
+
                 # go to venue
                 travel_dist = makeTravelDist(self.findLunchPath(nodes[curr_index].name))
                 travel_time = travel_dist / self.speed

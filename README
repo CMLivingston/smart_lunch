@@ -10,7 +10,11 @@ General Notes:
 	.txt files in static folder are CSV files to store info about our objects. If you wish to change anything about objects in simulation, change there.
 	To run the simulation:
 		-Navigate to folder with source files (smart_lunch)
+<<<<<<< HEAD
 		-Type "python simulate.py" into Terminal and hit Enter
+=======
+		-Type “python simulation.py” into Terminal and hit Enter
+>>>>>>> ba3052784172b879f809aaecb5347c504bd8bd51
 		-Follow the instructions printed on screen
 		-The results for the dumb and smart simulations will be printed to dumb.log and smart.log, respectively
 
