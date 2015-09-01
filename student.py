@@ -13,6 +13,7 @@ class Student(object):
 
     def __init__(self, idnum, x, y, speed, tolerance, classroom, preferences, env):
       
+      
         self.id = idnum
         self.x = int(x)
         self.y = int(y)
@@ -28,11 +29,12 @@ class Student(object):
         
     def __str__(self): 
         return "Student " + str(self.id)
+    
+ 
 
     # draw movement of a point from one vertex to the next
-    def makeMove(self, start, end, window, is_final_dest):
+    def makeMove(self, start, end, is_final_dest, window):
         
-        # how fast the graphics will be drawn..manipulate with simpy?
         # .1 is very slow
         # 0.5 is close to actual walking speed
         # .01 is a good sped up version, and possibly max speed (from extensive testing)
@@ -40,7 +42,7 @@ class Student(object):
         # pixels to move per step
         MOVE_INCREMENT = 1
         
-        
+        # debug
         #print "Moving from " + str(start) + " to " + str(end) 
         #print "My current pos: " + str(self.x) + "," + str(self.y)
         
@@ -62,16 +64,16 @@ class Student(object):
             if (end.x == start.x):
                 self.x = start.x
             elif (end.x < start.x):
-                self.x = self.x - MOVE_INCREMENT
+                self.x = self.x - 1
             else:
-                self.x = int(self.x) + MOVE_INCREMENT
+                self.x = int(self.x) + 1
               
             if (end.y == start.y):
                 self.y = start.y
             elif (end.y < start.y):
-                self.y = self.y - MOVE_INCREMENT
+                self.y = self.y - 1
             else:
-                self.y = int(self.y) + MOVE_INCREMENT
+                self.y = int(self.y) + 1
             
            
             p = Point(self.x,self.y)
@@ -80,7 +82,7 @@ class Student(object):
             # wait
             time.sleep(SIMULATION_SPEED)
         
-        # undraw for next call of makeMove, unless it is the last in the studnets path    
+        # undraw for next call of makeMove, unless it is the last in the students path    
         p.undraw()
         self.x = end.x
         self.y = end.y 
@@ -95,7 +97,8 @@ class Student(object):
         
         # done with this move
     
-    # non-graphics option
+   
+    # non-graphics BFS option
     def findLunchPath(self, start_name):
         g = load_graph()
         
@@ -126,7 +129,7 @@ class Student(object):
         g = load_graph()
         
         start = g[start_name]
-        # Jasper: maybe change below line to make random? 
+        
         pref = self.preferences[0][0]
         
         end = g[str(pref)]
@@ -134,18 +137,20 @@ class Student(object):
         
         # TRIP DISTANCE in pixels
         trip_dist = len(path)*39
-        print str(trip_dist) + "is it in PIXS"
         
         
+        '''
+        prints shortest path in reverse
         # print the shortest path to students preference
         i = len(path) - 1
         print "Path for student: " + str(self)
         while (i >= 0):
             print path[i]
             i = i-1
+        '''
         
         print " "
-        print "Student heading to lunch from " + "(" + str(start_name) + ")"
+        print "Simulating Student " + str(self.id) + "'s shortest path to " + str(pref.name) + " from " + "(" + str(start_name) + ")"
         
         # important! index path BACKWARDS (shortest path is dict of BACKPOINTERS)
         i = len(path) - 1
@@ -158,19 +163,23 @@ class Student(object):
             else:
                 is_final = False
                 
-            self.makeMove(path[i], path[i-1], window, is_final) 
+            self.makeMove(path[i], path[i-1], is_final,window) 
             i = i-1
       
         print "Student arrived at destination "  + str(path[i].name) 
 
+
+    # to calculate distance traveled in simulation
     def makeTravelDist(self, pixel_dist):
         # 39 px = 88 ft
         px = 39
         feet = 88
         ret = (pixel_dist * feet) / px
         return ret
+    
 
     def run(self):
+      
         # wait to leave the classroom
         class_wait_time = self.classroom.line_spot(self) * self.classroom.exit_time
         yield self.env.timeout(class_wait_time)
@@ -181,15 +190,18 @@ class Student(object):
         venue = curr_pref[0]
         station = curr_pref[1]
         arrival_time = 0
+             
+        # dumb simulation
         if self.smart == False:
             # go to venue
             travel_dist = makeTravelDist(self.findLunchPath(self.classroom.name))
             travel_time = travel_dist / self.speed
-            #self.goToLunch(self.classroom.name, win)
+            
             yield self.env.timeout(travel_time)
             print ("Student %d arrived at %s at %s" % (self.id, venue.name, convertToMin(self.env.now)))
             arrival_time = self.env.now
-
+            
+        # smart simulation       
         elif self.smart == True and station != 0:
             nodes = self.findBFS(self.classroom.name)
             curr_index = len(nodes) - 1
@@ -211,16 +223,14 @@ class Student(object):
                 curr_pref = self.preferences[1]
                 venue = curr_pref[0]
                 station = curr_pref[1]
-                print "REROUTING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-                print "Student %d is rerouting to %s" % (self.id, venue.name)
+                print "Current wait time at " + str(curr_pref) +" exceeds current tolerance." + " Student %d is rerouting to %s" % (self.id, venue.name)
                 # go to venue
                 travel_dist = makeTravelDist(self.findLunchPath(nodes[curr_index].name))
                 travel_time = travel_dist / self.speed
-                #self.goToLunch(self.classroom.name, win)
                 yield self.env.timeout(travel_time)
                 print ("Student %d arrived at %s at %s" % (self.id, venue.name, convertToMin(self.env.now)))
                 arrival_time = self.env.now
-
+       
         # get on food line, then get on cashier line
         if venue.name != "novack" and station != 0: # made-to-order
             # get on line
@@ -293,7 +303,7 @@ class Student(object):
             self.times.append(remaining_time)
             print "Student %d paid at %s" % (self.id, convertToMin(self.env.now))
 
-
+# set up graphics background
 def dartMap(im, win):
     p = Point(434, 320)
     i = Image(p, im)
@@ -311,6 +321,8 @@ def makeTravelDist(pixel_dist):
     feet = 88
     ret = (pixel_dist * feet) / px
     return ret
+
+
 
 def test():
     

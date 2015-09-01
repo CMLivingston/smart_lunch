@@ -95,6 +95,7 @@ def make_student(filepath, idnum, classroom, venues, env):
     s = x.split(',')
     preferences = make_prefs(venues, idnum)
     stud = Student(idnum, int(classroom.x), int(classroom.y), float(s[0]), int(s[1]), classroom, preferences, env)
+
     return stud
 
 def make_prefs(venues, idnum):

@@ -1,8 +1,31 @@
-# sandbox for simpy stuff
+# simulation.py
+# Authors: Jasper Bingham and Chris Livingston
+# 8/31/15
+#
+# This is the driver module for our project's simulation 
+#
+#
 import simpy
 import venue
 from load_data import *
+#
+#
+#
+#
+#
+# display shortest paths taken for "dumb simulation"
+def run_graphics_win(window, classrooms):
+    
+    for c in classrooms: 
+        
+        q = classrooms[c].departure_queue
+        
+        for j in range(0,1):
+           
+            q[j].goToLunch(classrooms[c].name, window)
 
+    window.close()
+    
 def run_dumb_simulation():
     print "Welcome to the \"Lunchtime at Dartmouth!\" simulation!"
     print "This version of the simulation does NOT use the IoT."
@@ -20,13 +43,12 @@ def run_dumb_simulation():
     
     # create environment
     env = simpy.Environment()
-
-    '''
+   
     # create a graphics window for the simulation and for the objects to be drawn on   
-    win = GraphWin("IoT Simulation", 858, 638)
+    window = GraphWin("IoT Simulation", 858, 638)
     background_image = "./static/dart.gif"
-    dartMap(background_image, win)'''
-
+    dartMap(background_image, window)
+        
     # make all the objects
     foods = make_foods("./static/foods.txt")
     stations = make_stations("./static/stations.txt", foods)
@@ -54,7 +76,17 @@ def run_dumb_simulation():
             index = index + 1
             switch_point = switch_point + inc
 
+
+    
+    # run the simulation for 75 (simulated) minutes
     env.run(until=4500)  # 75 minutes
+    
+    # run graphics demo
+    print ""
+    print "Running graphical simulation of path taken by first 2 students of each classroom..."
+    
+    run_graphics_win(window, classrooms)
+
 
     for student in all_students:
         if student.has_food:
@@ -99,7 +131,8 @@ def run_smart_simulation():
     # create a graphics window for the simulation and for the objects to be drawn on   
     win = GraphWin("IoT Simulation", 858, 638)
     background_image = "./static/dart.gif"
-    dartMap(background_image, win)'''
+    dartMap(background_image, win)
+    '''
 
     # make all the objects
     foods = make_foods("./static/foods.txt")
@@ -129,7 +162,7 @@ def run_smart_simulation():
             switch_point = switch_point + inc
 
     env.run(until=4500)  # 75 minutes
-
+    
     for student in all_students:
         if student.has_food:
             finished_students.append(student)
@@ -192,5 +225,13 @@ def get_averages(students):
 
     return averages
 
+
+# start
 run_dumb_simulation()
+print ""
+print "Starting new simulation..."
+print ""
 run_smart_simulation()
+print ""
+print "Simulation complete! Check out the logs to see the benefits of the IoT!"
+print ""

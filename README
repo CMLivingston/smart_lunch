@@ -1,4 +1,4 @@
-A simulation of a typical lunch hour at Dartmouth, with and without the Internet of Things. The “dumb” simulation assumes that students have no information about how long lines are at their favorite food venues, whereas the “smart” simulation assumes that students have perfect information, and will head to their second-favorite venue if the line is too long at their favorite.
+A simulation of a typical lunch hour at Dartmouth, with and without the Internet of Things. The ���dumb��� simulation assumes that students have no information about how long lines are at their favorite food venues, whereas the ���smart��� simulation assumes that students have perfect information, and will head to their second-favorite venue if the line is too long at their favorite.
 
 Authors:
 
@@ -10,13 +10,10 @@ General Notes:
 	.txt files in static folder are CSV files to store info about our objects. If you wish to change anything about objects in simulation, change there.
 	To run the simulation:
 		-Navigate to folder with source files (smart_lunch)
-		-Type “python simulate.py” into Terminal and hit Enter
+		-Type "python simulate.py" into Terminal and hit Enter
 		-Follow the instructions printed on screen
 		-The results for the dumb and smart simulations will be printed to dumb.log and smart.log, respectively
 
 
-Testing Methods:
-
-	to build and run, enter in terminal:
-		
-		python driver.py 	 
+	To clean working directory of unneccesary files:
+		-Type "make clean" into the terminal
